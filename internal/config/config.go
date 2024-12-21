@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -21,8 +20,6 @@ func New() *Config {
 	if port == "" {
 		port = "8080"
 	}
-
-	fmt.Println(host, port)
 
 	return &Config{
 		Host: host,

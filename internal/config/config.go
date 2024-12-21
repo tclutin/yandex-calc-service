@@ -1,6 +1,9 @@
 package config
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 type Config struct {
 	Host string
@@ -18,6 +21,8 @@ func New() *Config {
 	if port == "" {
 		port = "8080"
 	}
+
+	fmt.Println(host, port)
 
 	return &Config{
 		Host: host,

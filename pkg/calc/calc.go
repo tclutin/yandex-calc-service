@@ -7,10 +7,9 @@ import (
 	"unicode"
 )
 
-type Calc struct {
-}
+type Calc struct{}
 
-func NewCalc() *Calc {
+func New() *Calc {
 	return &Calc{}
 }
 

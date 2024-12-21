@@ -3,7 +3,7 @@ package calc
 import "testing"
 
 func TestCalc(t *testing.T) {
-	calc := NewCalc()
+	calc := New()
 
 	testCaseSuccess := []struct {
 		name           string

@@ -77,3 +77,37 @@ func TestHandler_RequiredJsonField(t *testing.T) {
 		t.Errorf("expected status 400, got %v", status)
 	}
 }
+
+func TestHandler_ZeroDivision(t *testing.T) {
+	data := `{"expression": "2/0"}`
+
+	h := New(logger.New(), calc.New())
+
+	req := httptest.NewRequest("POST", "/api/v1/calculate", bytes.NewBufferString(data))
+	req.Header.Set("Content-Type", "application/json")
+
+	recorder := httptest.NewRecorder()
+
+	h.Init().ServeHTTP(recorder, req)
+
+	if status := recorder.Code; status != http.StatusUnprocessableEntity {
+		t.Errorf("expected status 422, got %v", status)
+	}
+}
+
+func TestHandler_Validation(t *testing.T) {
+	data := `{"expression": "2+3--"}`
+
+	h := New(logger.New(), calc.New())
+
+	req := httptest.NewRequest("POST", "/api/v1/calculate", bytes.NewBufferString(data))
+	req.Header.Set("Content-Type", "application/json")
+
+	recorder := httptest.NewRecorder()
+
+	h.Init().ServeHTTP(recorder, req)
+
+	if status := recorder.Code; status != http.StatusUnprocessableEntity {
+		t.Errorf("expected status 422, got %v", status)
+	}
+}

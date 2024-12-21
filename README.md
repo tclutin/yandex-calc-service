@@ -20,10 +20,43 @@ go run ./cmd/app/main.go
 The service will be available [here](http://localhost:8080)
 
 ## Endpoints
-| **Endpoint**       | **Method** | **Status** | **Windows curl**                                                                 | 
-|--------------------|------------|------------|----------------------------------------------------------------------------------|
-| `/api/v1/calculate` | `POST`     | `200`      | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data "{ \"expression\": \"2+2*2\" }"` | 
+
+| **Endpoint**        | **Метод** | **Статус** | **Windows curl**                                                                 | **Linux curl**                                                                  |
+|---------------------|-----------|------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| `/api/v1/calculate` | `POST`    | `200`      | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data "{ \"expression\": \"2+2*2\" }"` | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data '{ "expression": "2+2*2" }'` |
 ```json
 {
   "result": 6
 }
+```
+
+| **Endpoint**        | **Метод** | **Статус** | **Windows curl**                                                                                                                             | **Linux curl**                                                                                                                           |
+|---------------------|-----------|------------|----------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/calculate` | `POST`    | `400`      | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data "{ \"expre3ssion\": \"2+2*2\" }"` | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data '{ "expre3ssion": "2+2*2" }'` |
+```json
+{
+   "error": "Missing 'expression' field"
+}
+```
+
+
+| **Endpoint**        | **Метод** | **Статус** | **Windows curl**                                                                                                                          | **Linux curl**                                                                                                                        |
+|---------------------|-----------|------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `/api/v1/calculate` | `POST`    | `422`      | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data "{ \"expression\": \"2/0\" }"` | `curl --location "http://localhost:8080/api/v1/calculate" --header "Content-Type: application/json" --data '{ "expression": "2/0" }'` |
+```json
+{
+  "error": "division by zero"
+}
+```
+
+
+| **Endpoint**        | **Метод** | **Статус** | **Windows curl** | **Linux curl** |
+|---------------------|-----------|------------|------------------|----------------|
+| `/api/v1/calculate` | `POST`    | `500`      | `-`              | `-`            |
+```json
+{
+  "error": "Internal server error"
+}
+```
+
+There are also many cases of expression validation, and everything is not described here.

@@ -1,16 +1,10 @@
 package calc
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
-)
-
-var (
-	ErrValidationError = errors.New("validation error")
-	ErrDivisionByZero  = errors.New("division by zero")
 )
 
 type Calc struct {

@@ -199,6 +199,10 @@ func TestCalc(t *testing.T) {
 			name:       "division by zero in mixed operators",
 			expression: "1+2/(3-3)*4",
 		},
+		{
+			name:       "im so tired",
+			expression: "3+3(3*3)",
+		},
 	}
 
 	for _, testCase := range testCasesFail {

@@ -180,6 +180,10 @@ func (c *Calc) validate(expression string) error {
 		}
 
 		if char == '(' {
+			if wasDigit {
+				return fmt.Errorf("%w: operator missing before brackets", ErrValidationError)
+			}
+
 			brackets = append(brackets, char)
 			wasOperator = true
 			continue
